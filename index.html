@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+    <title>53 Stations of the Tōkaidō</title>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <link rel="stylesheet" href="./css/main.css">
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+        <div id="searchui">
+            <input id="searchbox" placeholder="Search a Station of the Tōkaidō." type="search" data-bind="textInput: filter, valueUpdate: 'keydown'" autocomplete="off"></input>
+                <ul data-bind="template: {name: 'station', foreach:stations}">
+                </ul>
+                <script type="text/html" id="station">
+                        <strong data-bind="text: name"></strong>
+                        <br>
+                </script>
+        </div>
+    <script src="./js/knockout-3.4.0.js"></script>
+    <script src="./js/main.js"></script>
+  </body>
+</html>
