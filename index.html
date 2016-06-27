@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex,nofollow,noarchive" />
     <title>53 Stations of the Tōkaidō</title>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCw5kJ2hQU_hxPaB6YESB4w0ms3sQxYZuE&callback=initialize" async defer></script>
     <link rel="stylesheet" href="./css/main.css">
   </head>
   <body>
@@ -15,8 +15,7 @@
                 <ul data-bind="template: {name: 'station', foreach:stations}">
                 </ul>
                 <script type="text/html" id="station">
-                        <strong data-bind="text: name"></strong>
-                        <br>
+                    <li data-bind="click: $parent.listItemClick" class="pointer"><strong data-bind="text: name"></strong></li>
                 </script>
         </div>
     <script src="./js/knockout-3.4.0.js"></script>

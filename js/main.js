@@ -11,9 +11,14 @@ var stations = [
     }
 ];
 
-window.onload = initialize;
+
+var infowindow;
 
 function initialize() {  
+
+    infowindow = new google.maps.InfoWindow({
+                      content:"Hello World!"
+                     });
 
     var mapOptions = {
         zoom: 9,
@@ -31,11 +36,12 @@ function initialize() {
 
 function setMarkers(location) {
 
-    for(i=0; i<location.length; i++) {
+    for(var i=0; i<location.length; i++) {
         location[i].holdMarker = new google.maps.Marker({
           position: new google.maps.LatLng(location[i].lat, location[i].lng),
           map: map,
-          title: location[i].title,
+          name: location[i].name,
+          animation: google.maps.Animation.DROP, 
           icon: {
             url: 'https://mt.googleapis.com/vt/icon/name=icons/spotlight/spotlight-poi.png',
             size: new google.maps.Size(25, 40),
@@ -47,20 +53,59 @@ function setMarkers(location) {
             type: 'poly'
           }
         });
+
+        location[i].holdMarker.addListener('click', function() {
+            console.log('click');
+
+//bounce the clicked maker
+/*
+  if (location[i].holdMarker.getAnimation() !== null) {
+    location[i].holdMarker.setAnimation(null);
+  } else {
+    location[i].holdMarker.setAnimation(google.maps.Animation.BOUNCE);
+  }
+*/
+
+            // perform ajax request
+
+            // open google maps infowindow
+
+  var infowindow = new google.maps.InfoWindow({
+                      content:"Hello World!"
+  });
+
+  infowindow.open(map,location);
+
+        });
     }
 
 }
 
-
 var viewModel = {
-    filter: ko.observable("")
+    filter: ko.observable(""),
+    listItemClick: function(station) {
+        google.maps.event.trigger(station.holdMarker, 'click');
+    }
 };
 
 
 viewModel.stations = ko.dependentObservable(function() {
     var filter = this.filter();
     return ko.utils.arrayFilter(stations, function(station) {
-       return station.name.toLowerCase().indexOf(filter) !== -1
+        // hide all map markers
+        if (station.holdMarker) {
+            station.holdMarker.setVisible(false);
+        }
+
+        if (station.name.toLowerCase().indexOf(filter) !== -1) {
+            // show the map marker
+            if (station.holdMarker) {
+                station.holdMarker.setVisible(true);
+            }
+            // add the map marker to the list
+            return station;
+        }
+
     });
 }, viewModel);
 
