@@ -9,7 +9,7 @@ https://en.wikipedia.org/wiki/Ukiyo-e<br/>
 Download the entire directory and open 'index.html' in a browser locally.
 
 ### Functionality
-Filter to search a station and the result synchronized with a marker in this map.
-Each marker hold information window that display Ukiyo-e of the station.
+Filter to search a station and the result synchronized with a marker in this map.<br/>
+Each marker hold an information window that display Ukiyo-e of the station.<br/>
 Each Ukiyo-e has a link to its wikipedia.
 
