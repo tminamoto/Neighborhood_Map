@@ -17,21 +17,21 @@ body {
 #searchui {
   position: absolute;
   width: 95%;
-  max-width: 390px;
-  min-width: 320px;
+  max-width: 280px;
+  min-width: 250px;
   margin: 0.5% 0 0 0.5%;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   font-family: Roboto,Arial,sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   background-color: #fff;
 }
 
 #searchbox {
   margin: 0px;
   background-color: #fff;
-  padding: 0 5px 0 8px;
+  padding: 0 25px 0 10px;
   width: 100%;
-  font-size: 15px;
+  font-size: 16px;
   text-overflow: ellipsis;
   border: 1px solid transparent;
   border-radius: 2px 0 0 2px;
@@ -40,12 +40,18 @@ body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
-
-
 ul {
   list-style-type: none;
 }
 
 .pointer {
   cursor: pointer;
+}
+
+.hide_show {
+    float: right;
+    margin-right: 10px;
+    margin-top: -29px;
+    position: relative;
+    z-index: 2;
 }

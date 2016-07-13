@@ -95,9 +95,8 @@ function initialize() {
         google.maps.event.trigger(map, "resize");
         map.setCenter(center);
     });
-    
-}
 
+}
 
 function setMarkers(location) {
 
@@ -203,4 +202,10 @@ ko.applyBindings(viewModel);
 // Alert when no google map api is not loadable.
 function googleError() {
     alert("Sorry, can't load Google MAP API now.\nTry this application later.\nThank you!")
+}
+
+
+// Hide and Show the station list.
+function hideShow() {
+    $("#slidingDiv").toggle();
 }

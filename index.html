@@ -6,20 +6,24 @@
     <meta name="robots" content="noindex,nofollow,noarchive" />
     <title>Old Stations of the Tōkaidō</title>
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
   </head>
   <body>
     <div id="map-canvas"></div>
-        <div id="searchui">
-            <input id="searchbox" placeholder="Search a Station of the Tōkaidō." type="search" data-bind="textInput: filter, valueUpdate: 'keydown'" autocomplete="off" />
-                <ul data-bind="template: {name: 'station', foreach:stations}">
-                </ul>
-                <script type="text/html" id="station">
-                    <li data-bind="click: $parent.listItemClick" class="pointer"><strong data-bind="text: name"></strong></li>
-                </script>
+    <div id="searchui">
+        <input id="searchbox" placeholder="Search a Station of the Tōkaidō." type="search" data-bind="textInput: filter, valueUpdate: 'keydown'" autocomplete="off" /><span class="fa fa-info-circle hide_show" onclick="hideShow()"></span>
+        <div id="slidingDiv">
+            <ul data-bind="template: {name: 'station', foreach:stations}">
+            </ul>
+            <script type="text/html" id="station">
+                <li data-bind="click: $parent.listItemClick" class="pointer"><strong data-bind="text: name"></strong></li>
+            </script>
         </div>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script src="./js/knockout-3.4.0.js"></script>
     <script src="./js/main.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCw5kJ2hQU_hxPaB6YESB4w0ms3sQxYZuE&callback=initialize" async defer onerror="googleError()" ></script>
   </body>
 </html>
+
