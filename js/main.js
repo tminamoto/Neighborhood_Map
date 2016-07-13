@@ -64,7 +64,7 @@ var stations = [
     },
     {
     name: "Odawara-juku",
-    keyword: "Tokaido09_Odawara",
+    keyword: "Tokaido09",
     lat: 35.248722, 
     lng: 139.161028,
     url: "https://en.wikipedia.org/wiki/Odawara-juku"
@@ -73,13 +73,10 @@ var stations = [
 
 
 var infowindow;
-var photourl;
 
 function initialize() {  
 
-    infowindow = new google.maps.InfoWindow({
-                      content:"Hello World!"
-                     });
+    infowindow = new google.maps.InfoWindow;
 
     var mapOptions = {
         zoom: 10,
@@ -103,8 +100,6 @@ function initialize() {
 
 
 function setMarkers(location) {
-
-    var content;
 
     for(var i=0; i<location.length; i++) {
         var marker = new google.maps.Marker({
@@ -134,12 +129,7 @@ function setMarkers(location) {
             this.setAnimation(google.maps.Animation.BOUNCE);
             stopAnimation(this);
 
-            getFlickr(this);
-            content = createContent(this);
-
-            // open google maps infowindow
-            infowindow.setContent(content);
-            infowindow.open(map,this);
+            setInfoWindow(map, this);
 
         });
     }
@@ -152,15 +142,11 @@ function stopAnimation(marker) {
     }, 1400);
 }
 
-// Create a content in the info window.
-function createContent(marker) {
-     return marker.name + '<br/>' + '<a href="' + marker.url + '" target="_blank"><img alt="' + marker.name + '" src=' + photourl + '"/></a>';
-}
-
 // Call Flickr API and get Photo URL
-function getFlickr(marker) {
+function setInfoWindow(vmap, marker) {
         var flickr;
         var photurl;
+        var content;
         var sourceurl = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=4fa0d52b3b38c8e04dd7e15efc8e2843&text=' + marker.keyword + '&format=json';
         $.ajax({
             url: sourceurl,
@@ -169,9 +155,14 @@ function getFlickr(marker) {
             success: function(data) {
                 flickr = data.photos.photo;
                 photourl = 'https://farm' + flickr[0].farm + '.staticflickr.com/' + flickr[0].server + '/' + flickr[0].id + '_' + flickr[0].secret + '.jpg';
-            },
+                content = marker.name + '<br/>' + '<a href="' + marker.url + '" target="_blank"><img alt="' + marker.name + '" src=' + photourl + '"/></a>';
+                infowindow.setContent(content);
+                infowindow.open(vmap, marker);
+                        },
             error: function() {
-                photourl = 'no data';
+                content = 'no data';
+                infowindow.setContent(content);
+                infowindow.open(vmap, marker);
             }
         });
 }
@@ -185,7 +176,9 @@ var viewModel = {
 
 
 viewModel.stations = ko.dependentObservable(function() {
-    var filter = this.filter();
+
+    var filter = this.filter().toLowerCase();
+
     return ko.utils.arrayFilter(stations, function(station) {
         // hide all map markers
         if (station.holdMarker) {
@@ -206,3 +199,8 @@ viewModel.stations = ko.dependentObservable(function() {
 
 
 ko.applyBindings(viewModel);
+
+// Alert when no google map api is not loadable.
+function googleError() {
+    alert("Sorry, can't load Google MAP API now.\nTry this application later.\nThank you!")
+}
